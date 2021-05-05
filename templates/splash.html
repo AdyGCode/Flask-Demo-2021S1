@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+<!-- Name: templates/splash.html -->
+
+{% block title %}
+Splash
+{% endblock %}
+
+{% block main %}
+<main>
+    <h2 class="text-blue-600 text-3xl">Main</h2>
+    <div class="mx-auto w-64 my-4 bg-black
+                text-green-400  text-center">
+        <p class="px-4 pt-4 pb-1 text-sm">{{ the_date }}</p>
+        <p class="px-4 pt-1 pb-4 text-2xl">{{ the_time }}</p>
+    </div>
+    <ul>
+        {% for number in range(10) %}
+        <li>{{ number }}</li>
+        {% endfor %}
+    </ul>
+</main>
+{% endblock %}

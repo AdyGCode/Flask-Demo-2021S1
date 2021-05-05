@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+<!-- Name:      templates/db-rainfall.html
+     Purpose:   Display Data from a DB -->
+
+{% block title %}
+    Rainfall | Flask Demo
+{% endblock %}
+
+{% block main %}
+<main>
+    <h1 class="text-4xl">Rainfall</h1>
+    <!-- table>((thead>tr>th*3)+(tbody>tr>td*3)+(tfoot>tr>td*3)) -->
+    <table class="">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Location</th>
+            <th>Rainfall (mm)</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for data in rainfall %}
+        <tr>
+            <td>{{ data.id }}</td>
+            <td>{{ data.location }}</td>
+            <td>{{ data.rainfall }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td>&nbsp;</td>
+            <td>{{ days }} Days</td>
+            <td>{{ mean_rain }}mm Avg</td>
+        </tr>
+        </tfoot>
+    </table>
+</main>
+{% endblock %}

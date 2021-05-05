@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- File: templates/base.html -->
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+
+    <link rel="stylesheet"
+          href="/static/css/tailwind.css"/>
+</head>
+<body class="bg-gray-400 font-sans leading-normal tracking-normal">
+<div>
+    {% include 'components/header.html' %}
+    <div class="container shadow-lg mx-auto bg-white mt-24">
+        {% block main %}{% endblock %}
+    </div>
+    {% include 'components/footer.html' %}
+</div>
+</body>
+</html>
