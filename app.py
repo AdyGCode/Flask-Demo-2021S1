@@ -17,8 +17,9 @@ from RainDB import Base, db_filename, Rainfall, db_data_file
 app = Flask(__name__)
 
 engine = create_engine(f"sqlite:///{db_filename}")
+Base.metadata.drop_all(engine)
 Base.metadata.create_all(engine)
-session = sessionmaker(bind=engine)()
+
 
 
 @app.route('/splash')  # http://localhost:5000/splash
@@ -50,19 +51,25 @@ def hello(name):
 
 @app.route("/rainfall")
 def rainfall_page():
+    session = sessionmaker(bind=engine)()
     rain_records = list(session.query(Rainfall).all())
     total_rain = 0
     for data in rain_records:
         total_rain += data.rainfall
-    days_rain =len( rain_records)
-    mean_rain = total_rain / days_rain
-    return render_template('db-rainfall.html', rainfall=rain_records,
-                           days=days_rain, total_rain=total_rain,
-                           mean_rain=round(mean_rain,3))
+    number_of_days = len(rain_records)
+    mean_rain=0
+    if number_of_days > 0:
+        mean_rain = total_rain / number_of_days
+    return render_template('db-rainfall.html',
+                           rainfall=rain_records,
+                           days=number_of_days,
+                           total_rain=total_rain,
+                           mean_rain=round(mean_rain, 3))
 
 
 @app.route("/seed-rainfall")
 def seed_rain():
+    session = sessionmaker(bind=engine)()
     count = 0
     with open(db_data_file, 'r') as read_handle:
         dictionary_reader = DictReader(read_handle)
@@ -77,8 +84,9 @@ def seed_rain():
                                              int(day))
             session.add(rain_record)
             session.commit()
-            count +=1
+            count += 1
     return f"{count} Records Added"
+
 
 if __name__ == "__main__":  # running our app.py
     app.run(debug=True)
