@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+<!-- Name: templates/clock.html -->
+
+{% block title %}
+    Clock | Flask Demo
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename= 'css/clock.css') }}"/>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename= 'js/clock.js') }}"></script>
+{% endblock %}
+
+{% block main %}
+    <main>
+        <h2 class="text-xl font-bold">Current Date and Time</h2>
+        <div class="p-10 bg-gray-900 rounded-xl my-6">
+            <pre id="theTime"
+                 class="text-6xl pb-6 text-green-600 text-center clock">
+                {{ the_time }}
+            </pre>
+            <pre id="theDate"
+                 class="text-lg text-green-800 text-center">
+                {{ the_date }}
+            </pre>
+        </div>
+    <p>A combination of Python, Flask, JavaScript and some TailwindCSS to
+        create an LED clock.</p>
+
+    </main>
+{% endblock %}
+

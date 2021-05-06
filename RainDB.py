@@ -8,8 +8,8 @@
 # --------------------------------------------------------------
 
 import os
-from sqlalchemy import Column, Date, DateTime, Float, func, Integer, \
-    String
+from sqlalchemy import Column, Date, DateTime, Float, func, \
+    Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 
 db_folder = "./data/"
@@ -24,6 +24,7 @@ if not os.path.isdir(db_folder):
     os.makedirs(db_folder)
 
 Base = declarative_base()
+
 
 class Rainfall(Base):
     __tablename__ = "rainfall"

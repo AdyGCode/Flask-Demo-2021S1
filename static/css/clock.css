@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'LED Display7 Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('LED Display7 Regular'),
+    url('/static/fonts/led_display-7.woff') format('truetype'),
+    url('/static/fonts/led_display-7.woff') format('woff');
+}
+
+.clock {
+    font-family: 'LED Display7 Regular';
+}

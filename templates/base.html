@@ -8,15 +8,24 @@
     </title>
 
     <link rel="stylesheet"
-          href="/static/css/tailwind.css"/>
+          href="{{ url_for('static', filename= 'css/tailwind.css') }}"/>
+    {% block styles %}{% endblock %}
+
 </head>
-<body class="bg-gray-400 font-sans leading-normal tracking-normal">
-<div>
-    {% include 'components/header.html' %}
-    <div class="container shadow-lg mx-auto bg-white mt-24">
+<body class="bg-gray-100 font-sans leading-normal tracking-normal flex
+             flex-col justify-between h-screen">
+
+{% include 'components/header.html' %}
+
+<div class="mb-auto mt-24">
+    <div class="container shadow-lg mx-auto bg-white mt-6 md:mt-18 p-6 mb-12">
         {% block main %}{% endblock %}
     </div>
-    {% include 'components/footer.html' %}
 </div>
+
+{% include 'components/footer.html' %}
+
+{% block js %}{% endblock %}
+
 </body>
 </html>
