@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+<!-- Name:      templates/rainfall.html
+     Purpose:   Display Data from an AJAX call -->
+
+{% block title %}
+    Rainfall | Client | Flask Demo
+{% endblock %}
+
+{% block main %}
+    <main class="py-6 ">
+        <h1 class="text-4xl">Rainfall</h1>
+        <div class="w-3/4 mx-auto">
+            <form action="#" method="post" id="rainForm">
+                <div class="mt-2 mb-6">
+                    <label for="numberDays"
+                           class="w-1/2 font-medium text-gray-700">
+                        Days to Display
+                    </label>
+                    <select name="numberDays" id="numberDays"
+                            class="mt-1 w-1/2 py-2 px-3 border border-gray-300 bg-white
+                    rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="" selected disabled>
+                            Select Number of days
+                        </option>
+                        <option value="1">1 Day</option>
+                        <option value="7">7 Days</option>
+                        <option value="14">14 Days</option>
+                        <option value="28">28 Days</option>
+                        <option value="84">3 Months</option>
+                        <option value="168">6 Months</option>
+                        <option value="365">1 Year</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="w-3/4 mx-auto">
+            <!-- table>((thead>tr>th*3)+(tbody>tr>td*3)+(tfoot>tr>td*3)) -->
+            <table class="w-full text-left rounded-lg hidden"
+                   id="rainTable">
+                <thead>
+                <tr class="text-gray-200 border border-b-0 bg-gray-900">
+                    <th class="w-1/12 p-2 text-right">ID</th>
+                    <th class="w-3/12 p-2 text-left">Date</th>
+                    <th class="w-1/2 p-2 text-left">Location</th>
+                    <th class="w-1/6 p-2 text-right">Rainfall (mm)</th>
+                </tr>
+                </thead>
+                <tbody id="rainTableBody">
+                <tr class="w-full font-light text-gray-700 border border-b-0">
+                    <td class="p-2 text-right">id</td>
+                    <td class="p-2 text-left">date_recorded</td>
+                    <td class="p-2 text-left">location</td>
+                    <td class="p-2 text-right">rainfall</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr id="rainTableFooter">
+                    <td class="bg-gray-700 text-gray-100 p-3 text-left"
+                        colspan="2"
+                        id="numberOfDays">
+                        Total Days: -
+                    </td>
+                    <td class="bg-gray-700 text-gray-100 p-3 text-right"
+                        colspan="2"
+                        id="meanRainfall">
+                        Average: - mm
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+
+            <h3 class="p-4 bg-red-700 text-white rounded"
+                id="noDataMessage">
+                No Data to display
+            </h3>
+        </div>
+    </main>
+{% endblock %}
+
+{% block js %}
+    <script>
+        // default number of days
+        let numDays = 0
+
+        // Selectors
+        const rainfallForm = document.getElementById('rainForm')
+        const numberDaysSelector = document.getElementById('numberDays')
+        const noDataMessage = document.getElementById('noDataMessage')
+        const rainTableBody = document.getElementById("rainTableBody")
+        const rainTable = document.getElementById("rainTable")
+        const meanRainfall = document.getElementById("meanRainfall")
+        const totalDays = document.getElementById("numberOfDays")
+
+        // Event Handlers
+        rainfallForm.addEventListener('submit', function (events) {
+            events.preventDefault()
+        })
+
+        numberDaysSelector.addEventListener('change', function (events) {
+            events.preventDefault()
+            let rainData = null
+            const numDays = Number.parseInt(numberDaysSelector.value)
+            if (numDays >= 1 && numDays <= 366) {
+                makeRainRequest(numDays)
+            }
+        })
+
+        // Helpers
+        function updateRainfallTable(rainData) {
+            let numRecords = rainData.length
+            let dataTable = ""
+            let totalRain = 0
+
+            /* create the table body rows */
+            for (let count = 0; count < numRecords; count++) {
+                let rainItem = rainData[count]
+                dataTable +=
+                    "<tr class='w-full font-light text-gray-700 border border-b-0'>" +
+                    "<td class='p-2 text-right'>" + rainItem.id + "</td>" +
+                    "<td class='p-2 text-left'>" + rainItem.date_recorded + "</td>" +
+                    "<td class='p-2 text-left'>" + rainItem.location + "</td>" +
+                    "<td class='p-2 text-right'>" + rainItem.rainfall + "</td>" +
+                    "</tr>\n"
+                totalRain += Number.parseFloat(rainItem.rainfall)
+            }
+
+            /* calculate the mean (average) rainfall */
+            meanRain = ""
+            if (numRecords > 0) {
+                meanRain = totalRain / numRecords
+                /* update the HTML */
+                rainTableBody.innerHTML = dataTable
+                meanRainfall.innerText = "Average: " + meanRain.toFixed(3) + " mm"
+                totalDays.innerText = numRecords + " days"
+            }
+
+            /* show table, or no results message */
+            if (dataTable > "") {
+                if (rainTable.classList.contains('hidden')) {
+                    rainTable.classList.toggle('hidden')
+                }
+                if (!noDataMessage.classList.contains('hidden')) {
+                    noDataMessage.classList.toggle('hidden')
+                }
+            } else {
+                rainTable.classList.add('hidden')
+                noDataMessage.classList.remove('hidden')
+            }
+        }
+
+        function makeRainRequest(days) {
+            const request = new XMLHttpRequest();
+            const requestURL = 'http://localhost:5050/api/rain/' + days
+            request.open('GET', requestURL)
+            request.send()
+
+            request.addEventListener('load', function () {
+                const data = JSON.parse(this.responseText)
+                updateRainfallTable(data)
+            })
+        }
+    </script>
+{% endblock %}

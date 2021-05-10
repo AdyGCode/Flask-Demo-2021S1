@@ -8,6 +8,7 @@
 # --------------------------------------------------------------
 
 import os
+
 from sqlalchemy import Column, Date, DateTime, Float, func, \
     Integer, String
 from sqlalchemy.ext.declarative import declarative_base
@@ -16,12 +17,12 @@ db_folder = "./data/"
 db_name = "rainfall.db"
 db_filename = f"{db_folder}{db_name}"
 db_csv_folder = "./csv/"
-db_text_file = "Rainfall-2020-Perth-Metro.csv"
+db_text_file = "IDCJAC0009_009225_1800_Data.csv"
 db_data_file = f"{db_csv_folder}{db_text_file}"
 
 # Check for the data folder and create if it is not present
 if not os.path.isdir(db_folder):
-    os.makedirs(db_folder)
+    os.makedirs(db_folder, mode=0o755)
 
 Base = declarative_base()
 
