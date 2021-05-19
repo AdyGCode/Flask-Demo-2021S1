@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+<!-- Name:      templates/index.html
+     Purpose:   Used as the home page for the site -->
+
+{% block title %}
+Home | Server | Flask Demo
+{% endblock %}
+
+{% block main %}
+<main>
+    <h1 class="text-4xl">Seeding completed</h1>
+    <p>Added {% block records %}{% endblock %}
+        {% if records == 1 %} Record {% else %} Records {% endif  %}
+    </p>
+
+</main>
+{% endblock %}

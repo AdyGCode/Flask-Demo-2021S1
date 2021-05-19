@@ -1,0 +1,67 @@
+<!-- File: templates/components/header.html -->
+<header>
+    <nav class="flex items-center justify-between flex-wrap
+                bg-yellow-900 p-6 fixed w-full z-10 top-0">
+        <div class="flex items-center flex-shrink-0 text-white mr-6">
+            <a class="text-white no-underline hover:text-white hover:no-underline"
+               href="/">
+                <span class="text-2xl pl-2"><i
+                        class="em em-grinning"></i>
+					Flask Demo: Server
+				</span>
+            </a>
+        </div>
+
+        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0"
+             id="nav-content">
+            <ul class="list-reset lg:flex justify-end flex-1 items-center">
+                <li class="mr-3">
+                    <a
+                            class="inline-block py-2 px-4 border-b-4 border-opacity-50
+                              {% if page=='home' %} text-white border-white border-opacity-100
+                              {% else %} text-gray-300 hover:text-gray-900 hover:bg-yellow-500 border-yellow-800
+                              {% endif %}"
+                       href="/">Home</a>
+                </li>
+                <li class="mr-3">
+                    <a
+                            class="inline-block py-2 px-4 text-gray-300 border-b-4 border-opacity-50
+                              {% if page=='seed' %} text-white border-white border-opacity-100
+                              {% else %} text-gray-300 hover:text-gray-900 hover:bg-yellow-500 border-yellow-800
+                              {% endif %}"
+                       href="/seed-rainfall">Seed the DB</a>
+                </li>
+                <li class="mr-3">
+                    <a
+                            class="inline-block py-2 px-4 text-gray-300 border-b-4 border-opacity-50
+                              {% if page=='LINK' %} text-white border-white border-opacity-100
+                              {% else %} text-gray-300 hover:text-gray-900 hover:bg-yellow-500 border-yellow-800
+                              {% endif %}"
+                       href="/">LINK</a>
+                </li>
+                <li class="mr-3">
+                    <a class="inline-block py-2 px-4 text-gray-300 border-b-4 border-opacity-50
+                              {% if page=='LINK' %} text-white border-white border-opacity-100
+                              {% else %} text-gray-300 hover:text-gray-900 hover:bg-yellow-500 border-yellow-800
+                              {% endif %}"
+                       href="/">LINK</a>
+                </li>
+                <li class="mr-3">
+                    <a class="inline-block py-2 px-4 text-gray-300 border-b-4 border-opacity-50
+                              {% if page=='LINK' %} text-white border-white border-opacity-100
+                              {% else %} text-gray-300 hover:text-gray-900 hover:bg-yellow-500 border-yellow-800
+                              {% endif %}"
+                       href="/">LINK</a>
+                </li>
+                <li class="mr-3">
+                    <a class="inline-block py-2 px-4 text-gray-300 border-b-4 border-opacity-50
+                              {% if page=='about' %} text-white border-white border-opacity-100
+                              {% else %}
+                              text-gray-300 hover:text-gray-900 hover:bg-yellow-500 border-yellow-800
+                              {% endif %}"
+                       href="/about">About</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

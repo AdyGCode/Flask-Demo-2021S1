@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+<!-- Name:      templates/404.html
+     Purpose:   Used as the home page for the site -->
+
+{% block title %}
+404 | Flask Demo
+{% endblock %}
+
+{% block main %}
+<main class="text-lg">
+
+    <h1 class="text-6xl text-red-500">OOPS!</h1>
+
+    <p class="pt-6">
+        You seem to have made an invalid page request to {{ system_name
+        }}.
+    </p>
+    <p class="pt-6">
+        Please check where you meant to go, or
+        <a href="/" class="underline text-gray-500 font-semibold">
+        click here return to the home page</a>.
+    </p>
+
+
+</main>
+{% endblock %}

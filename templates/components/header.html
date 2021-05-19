@@ -1,11 +1,12 @@
 <!-- File: templates/components/header.html -->
 <header>
-    <nav class="flex items-center justify-between flex-wrap bg-gray-800 p-6 fixed w-full z-10 top-0">
+    <nav
+            class="flex items-center justify-between flex-wrap bg-gray-900 p-6 fixed w-full z-10 top-0">
         <div class="flex items-center flex-shrink-0 text-white mr-6">
             <a class="text-white no-underline hover:text-white hover:no-underline"
                href="/">
                 <span class="text-2xl pl-2"><i class="em em-grinning"></i>
-					Flask Demo
+					Flask Demo: Client
 				</span>
             </a>
         </div>
@@ -14,51 +15,45 @@
              id="nav-content">
             <ul class="list-reset lg:flex justify-end flex-1 items-center">
                 <li class="mr-3">
-                    <a class="inline-block py-2 px-4
-                              {% if page=='home' %} text-white
-                              {% else %} text-gray-400 {% endif %}
-                              no-underline hover:text-gray-200
-                              hover:text-underline py-2 px-4"
+                    <a class="inline-block py-2 px-4 text-gray-300 border-b-4 border-opacity-50
+                              {% if page=='home' %} text-white border-white border-opacity-100
+                              {% else %} text-gray-300 border-red-800 {% endif %}
+                              hover:text-gray-900 hover:bg-red-500"
                        href="/">Home</a>
                 </li>
                 <li class="mr-3">
-                    <a class="inline-block py-2 px-4
-                              {% if page=='rainfall' %} text-white
-                              {% else %} text-gray-400 {% endif %}
-                              no-underline hover:text-gray-200
-                              hover:text-underline py-2 px-4"
+                    <a class="inline-block py-2 px-4 text-gray-300 border-b-4 border-opacity-50
+                              {% if page=='rainfall' %} text-white border-white border-opacity-100
+                               {% else %} text-gray-300 border-red-800 {% endif %}
+                              hover:text-gray-900 hover:bg-red-500"
                        href="/rainfall">Rainfall</a>
                 </li>
                 <li class="mr-3">
-                    <a class="inline-block py-2 px-4
-                              {% if page=='clock' %} text-white
-                              {% else %} text-gray-400 {% endif %}
-                              no-underline hover:text-gray-200
-                              hover:text-underline py-2 px-4"
+                    <a class="inline-block py-2 px-4 text-gray-300 border-b-4 border-opacity-50
+                              {% if page=='clock' %} text-white border-white border-opacity-100
+                              {% else %} text-gray-300 border-red-800 {% endif %}
+                              hover:text-gray-900 hover:bg-red-500"
                        href="/clock">Clock</a>
                 </li>
                 <li class="mr-3">
-                    <a class="inline-block py-2 px-4
-                              {% if page=='LINK' %} text-white
-                              {% else %} text-gray-400 {% endif %}
-                              no-underline hover:text-gray-200
-                              hover:text-underline py-2 px-4"
+                    <a class="inline-block py-2 px-4 text-gray-300 border-b-4 border-opacity-50
+                              {% if page=='LINK' %} text-white border-white border-opacity-100
+                              {% else %} text-gray-300 border-red-800 {% endif %}
+                              hover:text-gray-900 hover:bg-red-500"
                        href="/">LINK</a>
                 </li>
                 <li class="mr-3">
-                    <a class="inline-block py-2 px-4
-                              {% if page=='LINK' %} text-white
-                              {% else %} text-gray-400 {% endif %}
-                              no-underline hover:text-gray-200
-                              hover:text-underline py-2 px-4"
+                    <a class="inline-block py-2 px-4 text-gray-300 border-b-4 border-opacity-50
+                              {% if page=='LINK' %} text-white border-white border-opacity-100
+                              {% else %} text-gray-300 border-red-800 {% endif %}
+                              hover:text-gray-900 hover:bg-red-500"
                        href="/">LINK</a>
                 </li>
                 <li class="mr-3">
-                    <a class="inline-block py-2 px-4
-                              {% if page=='about' %} text-white
-                              {% else %} text-gray-400 {% endif %}
-                              no-underline hover:text-gray-200
-                              hover:text-underline py-2 px-4"
+                    <a class="inline-block py-2 px-4 text-gray-300 border-b-4 border-opacity-50
+                              {% if page=='about' %} text-white border-white border-opacity-100
+                              {% else %} text-gray-300 border-red-800 {% endif %}
+                              hover:text-gray-900 hover:bg-red-500"
                        href="/about">About</a>
                 </li>
             </ul>

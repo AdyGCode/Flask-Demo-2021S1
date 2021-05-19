@@ -856,3 +856,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+data/rainfall.db

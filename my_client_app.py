@@ -8,10 +8,8 @@
 # Copied from the previous app.py, removed the non-client
 # content, such as SQLAlchemy, database access etc
 # --------------------------------------------------------------
-from datetime import date, datetime
-from html import escape
 
-from flask import app, Flask, jsonify, render_template
+from flask import app, Flask,  render_template
 
 
 MyClientApp = Flask(__name__)
@@ -20,19 +18,22 @@ MyClientApp = Flask(__name__)
 @MyClientApp.route("/")  # http://localhost:5000/
 def hello_world():
     return render_template('index.html',
-                           page="home")
+                           page="home",
+                           system_name="Client",)
 
 
 @MyClientApp.route("/clock")
 def clock():
     return render_template('clock.html',
-                           page='clock')
+                           page='clock',
+                           system_name="Client",)
 
 
 @MyClientApp.route("/about")
 def about_app():
     return render_template('about.html',
-                           page="about")
+                           page="about",
+                           system_name="Client",)
 
 
 @MyClientApp.route("/rainfall")
@@ -43,6 +44,7 @@ def rainfall_page():
     '''
     return render_template('rainfall.html',
                            page="rainfall",
+                           system_name="Client",
                            )
 
 
@@ -50,6 +52,15 @@ def rainfall_page():
 def rainfall_chart_page():
     return "Not Yet Defined"
 
+
+
+
+# captures all incorrect page requests
+@MyClientApp.route("/<anything>")
+def error_404(anything=""):
+    return render_template('404.html',
+                           page="404",
+                           system_name="Client",)
 
 if __name__ == "__main__":  # running our app.py
     MyClientApp.run(debug=True, host="127.0.0.1", port="5000")

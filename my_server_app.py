@@ -1,5 +1,5 @@
 # --------------------------------------------------------------
-# File:     /app.py
+# File:     /my_server_app.py
 # Project:  Flask-Demo
 # Author:   Adrian Gould <Adrian.Gould@nmtafe.wa.edu.au>
 # Created:  14/04/2021
@@ -19,7 +19,8 @@ from csv import DictReader
 from RainDB import Base, db_data_file, db_filename, Rainfall
 
 MyServerApp = Flask(__name__)
-MyServerCors = CORS(MyServerApp, resources={r"/api/*": {"origins": "*"}})
+MyServerCors = CORS(MyServerApp,
+                    resources={r"/api/*": {"origins": "*"}})
 MyServerApp.config['CORS_HEADERS'] = 'Content-Type'
 
 engine = create_engine(f"sqlite:///{db_filename}")
@@ -49,32 +50,7 @@ def records_to_list(records):
     return result_list
 
 
-@MyServerApp.route("/")  # http://localhost:5000/
-@cross_origin()
-def hello_world():
-    return render_template('index.html',
-                           page="home")
-
-
-# @MyServerApp.route("/rainfall")
-# def rainfall_page():
-#     session = sessionmaker(bind=engine)()
-#     rain_records = list(session.query(Rainfall).all())
-#     total_rain = 0
-#     mean_rain = 0
-#     number_of_days = len(rain_records)
-#     if number_of_days > 0:
-#         for data in rain_records:
-#             total_rain += data.rainfall
-#         mean_rain = total_rain / number_of_days
-#     return render_template('db-rainfall.html',
-#                            page="rainfall",
-#                            rainfall=rain_records,
-#                            days=number_of_days,
-#                            total_rain=total_rain,
-#                            mean_rain=round(mean_rain, 3))
-
-
+# API requests
 @MyServerApp.route("/api/rain/<int:days>")
 @cross_origin()
 def api_rain(days):
@@ -97,6 +73,22 @@ def api_rain_days_from(days, start):
     return rain_json
 
 
+# Normal page requests
+@MyServerApp.route("/")  # http://localhost:5000/
+@cross_origin()
+def hello_world():
+    return render_template('index.html',
+                           page="home",
+                           system_name="Server")
+
+
+@MyServerApp.route("/about")
+def about_app():
+    return render_template('server-about.html',
+                           page="about",
+                           system_name="Server", )
+
+
 @MyServerApp.route("/seed-rainfall")
 @cross_origin()
 def seed_rain():
@@ -115,13 +107,26 @@ def seed_rain():
             month = data["Month"]
             year = data["Year"]
             rain_record = Rainfall()
-            rain_record.location = data["Bureau of Meteorology station number"]
+            rain_record.location = data[
+                "Bureau of Meteorology station number"]
             rain_record.rainfall = data["Rainfall amount (millimetres)"]
-            rain_record.date_recorded = date(int(year), int(month), int(day))
+            rain_record.date_recorded = date(int(year), int(month),
+                                             int(day))
             session.add(rain_record)
             session.commit()
             count += 1
-    return f"{count} Records Added"
+    return render_template('server-seed.html',
+                           page="seed",
+                           records=count,
+                           system_name="Server", )
+
+
+# captures all incorrect page requests
+@MyServerApp.route("/<anything>")
+def error_404(anything=""):
+    return render_template('404.html',
+                           page="404",
+                           system_name="Server",)
 
 
 if __name__ == "__main__":  # running our app.py
